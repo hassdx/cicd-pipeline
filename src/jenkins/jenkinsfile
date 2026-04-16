@@ -1,46 +1,45 @@
-pipline {
+pipeline {
     agent any
 
-    enviroment {
-        DOCKERHUB_CREDENTIALS=credentials('dockerhub')
+    environment {
+        DOCKERHUB_CREDENTIALS = credentials('dockerhub')
     }
-
+    
     tools {
         dockerTool 'docker'
         nodejs 'node-20'
 
     }
 
+
     stages {
-        stage('build') {
+        stage('Build') { 
             steps {
-                sh '''
-                echo 'install the dependincies ........'
-                npm install
-                '''
+                sh 'npm install'
+
+            }
+
+        }
+
+        stage('Test') {
+            steps {
+                sh 'npm test'
+
             }
         }
 
-        stage('test') {
-            steps {
-                sh '''
-                echo 'test the installed dependencies ..........'
-                test npm
-                '''
-            }
-        }
 
-        stage('Docker Build') {
+
+        stage('Docker build and Push') {
             steps {
                 sh '''
                 echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin
-
-                docker build -t hassdx/cicd-web-container:${BRANCH_NAME} .
-                docker push hassdx/cicd-web-container:${BRANCH_NAME}
-
+                
+                
+                docker build -t hassdx/cicd-web-container:dev .
+                docker push hassdx/cicd-web-container:dev
                 '''
-
             }
         }
-    } 
+    }
 }
