@@ -35,8 +35,8 @@ pipline {
                 sh '''
                 echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin
 
-                docker build -t hassdx/cicd-web-container:${BRANCH_NAME} .
-                docker push hassdx/cicd-web-container:${BRANCH_NAME}
+                docker build -t hassdx/cicd-web-container:main .
+                docker push hassdx/cicd-web-container:main
 
                 '''
 
