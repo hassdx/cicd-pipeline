@@ -15,9 +15,9 @@
         docker rm my-app-dev
       ignore_errors: yes
 
-- name: Run main container
-  command: docker run -d --name my-app-main -p 3000:3000 hassdx/cicd-web-container:main
+    - name: Run main container
+      command: docker run -d --name my-app-main -p 3000:3000 hassdx/cicd-web-container:main
 
-- name: Run dev container
-  command: docker run -d --name my-app-dev -p 3001:3001 hassdx/cicd-web-container:dev
-
+    - name: Run dev container
+      command: docker run -d --name my-app-dev -p 3001:3001 hassdx/cicd-web-container:dev
+  
